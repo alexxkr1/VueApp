@@ -26,6 +26,7 @@
   import { useRouter } from 'vue-router'
   import { useVuelidate } from '@vuelidate/core'
   import { required } from '@vuelidate/validators'
+import { httpClient } from '../../axios';
   
   const uId = ref(''); 
   onMounted(async()=>{
@@ -34,7 +35,7 @@
   console.log(damn)
   
   console.log()
-  const response = await axios.get('http://localhost:3000/userData', damn);
+  const response = await httpClient.get('/userData', damn);
   console.log(response.data.results[0])
 
   uId.value = response.data.results[0].id;
@@ -65,7 +66,7 @@
         id: uId.value
       };
     
-      axios.post('http://localhost:3000/organizations', data, damn)
+      httpClient.post('/organizations', data, damn)
         .then(response => {
           console.log(response.data);
           router.push('/dashboard');

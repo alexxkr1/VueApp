@@ -44,8 +44,8 @@
         <div class="field">
           <div>
             <label for="event-name">Organization URL</label>
-           <p>  <a style="color: blue" :href="`http://http://localhost:5173/organizations/${authStore.users.organization_id}`">
-  http://http://localhost:5173/organizations/{{ authStore.users.organization_id }}
+           <p>  <a style="color: blue" :href="`https://master.d1x7vys3fc5yj6.amplifyapp.com/organizations/${authStore.users.organization_id}`">
+            https://master.d1x7vys3fc5yj6.amplifyapp.com/{{ authStore.users.organization_id }}
 </a></p>
           </div>
         </div>

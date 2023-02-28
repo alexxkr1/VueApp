@@ -72,7 +72,7 @@
       };
     },
     mounted() {
-      fetch('http://localhost:3000/events')
+      fetch('https://2ce5-84-50-88-149.eu.ngrok.io/events')
         .then(response => response.json())
         .then(data => {
           this.events = data;

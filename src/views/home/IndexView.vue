@@ -18,11 +18,12 @@
   <script setup>
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
+import { httpClient } from '../../axios';
  
   const events = ref([]);
   console.log
   onMounted(async () => {
-    const response = await axios.get('http://localhost:3000/events');
+    const response = await httpClient.get('/events');
     events.value = response.data.events;
     console.log(events.value)
   });
