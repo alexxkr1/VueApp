@@ -43,8 +43,8 @@ onMounted(async()=>{
 
   await authStore.getUser()
 
-  if(!authStore.users.organization_id)
-    router.push('/createOrganization')
+  // if(!authStore.users.organization_id)
+  //   router.push('/createOrganization')
 
   // const damn = axios.defaults.headers.common["Authorization"] =
   //               "Bearer " + localStorage.getItem("token");
