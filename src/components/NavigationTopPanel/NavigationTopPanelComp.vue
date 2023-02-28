@@ -40,7 +40,7 @@ const users = ref([]);
 const uName = ref(''); 
 const uOrgId = ref(''); 
 onMounted(async()=>{
-
+  console.log('its happening')
   await authStore.getUser()
 
   // if(!authStore.users.organization_id)
