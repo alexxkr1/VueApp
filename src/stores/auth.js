@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
             const token = axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("token");
             errorMessage.value = "";
-            const { data } = await httpClient.get('/userData', {
+            const { data } = await axios.get('https://2ce5-84-50-88-149.eu.ngrok.io/userData', {
                 token: token
             });
 
