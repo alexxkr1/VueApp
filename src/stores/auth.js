@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
             const token = axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("token");
             errorMessage.value = "";
-            const { data } = await axios.get('http://localhost:3000/userData', {
+            const { data } = await httpClient.get('/userData', {
                 token: token
             });
 
