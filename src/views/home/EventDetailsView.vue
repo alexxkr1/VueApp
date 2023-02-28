@@ -45,7 +45,7 @@
         <template #content>
           <div class="container">
             <div class="image-container">
-              <img class="w-10" alt="user header" src="./img.jpg">
+              <img class="w-10" alt="user header" >
             </div>
             <div class="text-container">
               <p>{{ ticket.name }}</p>
