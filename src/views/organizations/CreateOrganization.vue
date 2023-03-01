@@ -66,7 +66,7 @@ import { httpClient } from '../../axios';
         id: uId.value
       };
     
-      httpClient.post('/organizations', data, damn)
+      axios.post('https://100.26.237.62:3000/organizations', data, damn)
         .then(response => {
           console.log(response.data);
           router.push('/dashboard');
