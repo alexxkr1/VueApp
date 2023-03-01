@@ -78,6 +78,10 @@ import { useRoute } from 'vue-router';
 import { useEventsStore } from '../../stores/events';
 import { useGtag } from "vue-gtag";
 
+const state = reactive({
+    ticketName: '',
+    price: 5,
+  });
 
 const route = useRoute()
 const { gtag } = useGtag();
@@ -91,7 +95,6 @@ const sessionId = ref(null);
 const tickets = ref([]);
 const checkoutRef = ref(null)
 
-let timer;
 
 onMounted(async () => {
   try {
@@ -105,23 +108,11 @@ onMounted(async () => {
     console.error(error);
   }
 
-  let startTime = new Date().getTime();
-
-   timer = setInterval(() => {
-    let elapsedTime = new Date().getTime() - startTime;
-    gtag.event('time_on_page', { value: elapsedTime });
-  }, 1000);
+  
   
 });
 
 
-onUnmounted(() => {
-    clearInterval(timer);
-  });
-const state = reactive({
-    ticketName: '',
-    price: 5,
-  });
 
 
 
