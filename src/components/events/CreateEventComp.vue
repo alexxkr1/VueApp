@@ -115,7 +115,7 @@ const organization_id = authStore.users.organization_id
         formData.append('location', state.eventLocation);
         formData.append('start_datetime', state.eventDate);
         formData.append('tags', state.eventTags.code);
-        const response = await axios.post('http://localhost:3000/events', formData, {
+        const response = await axios.post('https://100.26.237.62:3000/events', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
