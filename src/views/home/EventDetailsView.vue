@@ -73,12 +73,14 @@
 <script setup>
 import { StripeCheckout } from '@vue-stripe/vue-stripe';
 import axios from 'axios';
-import { computed, onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useEventsStore } from '../../stores/events';
+import { useGtag } from "vue-gtag";
 
 
 const route = useRoute()
+const { gtag } = useGtag();
 
 const eventsStore = useEventsStore()
 const event_id = route.params.id
@@ -88,6 +90,8 @@ const loading = ref(false);
 const sessionId = ref(null);
 const tickets = ref([]);
 const checkoutRef = ref(null)
+
+let timer;
 
 onMounted(async () => {
   try {
@@ -100,22 +104,25 @@ onMounted(async () => {
   } catch (error) {
     console.error(error);
   }
+
+  let startTime = new Date().getTime();
+
+   timer = setInterval(() => {
+    let elapsedTime = new Date().getTime() - startTime;
+    gtag.event('time_on_page', { value: elapsedTime });
+  }, 1000);
+  
 });
+
+
+onUnmounted(() => {
+    clearInterval(timer);
+  });
 const state = reactive({
     ticketName: '',
     price: 5,
   });
 
-// async function getTickets() {
-//   try {
-//     const response = await axios.post('https://9340-84-50-88-149.eu.ngrok.io/tickets', {
-//       event_id: EventId,
-//     });
-//     tickets.value = response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
 
 async function createCheckoutSession( ) {
@@ -155,6 +162,22 @@ async function submit(name, price) {
     await createCheckoutSession(state.ticketName, state.price);
   }
   checkoutRef.value.redirectToCheckout({ sessionId: sessionId.value });
+
+  // Track the checkout event
+  gtag.event("purchase", {
+      transaction_id: sessionId.value,
+      value: price,
+      currency: "USD",
+      items: [
+        {
+          id: name,
+          name: name,
+          category: "Tickets",
+          quantity: 1,
+          price: price,
+        },
+      ],
+    });
 }
 
 
