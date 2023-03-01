@@ -72,7 +72,7 @@
       };
     },
     mounted() {
-      fetch('https://2ce5-84-50-88-149.eu.ngrok.io/events')
+      fetch('https://100.26.237.62:3000/events')
         .then(response => response.json())
         .then(data => {
           this.events = data;

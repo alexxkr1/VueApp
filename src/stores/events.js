@@ -140,7 +140,7 @@ export const useEventsStore = defineStore('events', () => {
 
   async function getTickets(event_id) {
     try {
-        const response = await httpClient.post('https://9340-84-50-88-149.eu.ngrok.io/tickets', {
+        const response = await httpClient.post('https://100.26.237.62:3000/tickets', {
             event_id
         });
         tickets.value = response.data;

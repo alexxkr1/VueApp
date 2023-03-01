@@ -120,7 +120,7 @@ const state = reactive({
 
 async function createCheckoutSession( ) {
   try {
-    const response = await axios.post('https://9340-84-50-88-149.eu.ngrok.io/create-checkout-session', {
+    const response = await axios.post('https://100.26.237.62:3000/create-checkout-session', {
       lineItems: [
         {
           price_data: {
