@@ -11,7 +11,8 @@ import router from "../src/router/router";
 
 
 const app = createApp(App).use(VueGtag, {
-    config: { id: "G-9JH89BZQRC" }
+    config: { id: "G-9JH89BZQRC" },
+    router
   })
 primevueConfig(app);
 app.use(createPinia());
