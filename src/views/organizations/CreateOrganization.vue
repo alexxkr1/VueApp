@@ -35,7 +35,7 @@ import { httpClient } from '../../axios';
   console.log(damn)
   
   console.log()
-  const response = await httpClient.get('/userData', damn);
+  const response = await axios.get('https://100.26.237.62:3000/userData', damn);
   console.log(response.data.results[0])
 
   uId.value = response.data.results[0].id;
