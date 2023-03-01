@@ -76,7 +76,7 @@ import axios from 'axios';
 import { onMounted, ref, reactive, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useEventsStore } from '../../stores/events';
-import { useGtag } from "vue-gtag";
+//import { useGtag } from "vue-gtag";
 
 const state = reactive({
     ticketName: '',
@@ -84,7 +84,7 @@ const state = reactive({
   });
 
 const route = useRoute()
-const { gtag } = useGtag();
+//const { gtag } = useGtag();
 
 const eventsStore = useEventsStore()
 const event_id = route.params.id
@@ -155,20 +155,20 @@ async function submit(name, price) {
   checkoutRef.value.redirectToCheckout({ sessionId: sessionId.value });
 
   // Track the checkout event
-  gtag.event("purchase", {
-      transaction_id: sessionId.value,
-      value: price,
-      currency: "USD",
-      items: [
-        {
-          id: name,
-          name: name,
-          category: "Tickets",
-          quantity: 1,
-          price: price,
-        },
-      ],
-    });
+  // gtag.event("purchase", {
+  //     transaction_id: sessionId.value,
+  //     value: price,
+  //     currency: "USD",
+  //     items: [
+  //       {
+  //         id: name,
+  //         name: name,
+  //         category: "Tickets",
+  //         quantity: 1,
+  //         price: price,
+  //       },
+  //     ],
+  //   });
 }
 
 
