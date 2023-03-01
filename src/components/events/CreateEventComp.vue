@@ -4,7 +4,7 @@
         <div class="label mb-3">Create an Event</div>
       </div>
   
-      <form class="p-fluid" @submit.prevent="handleSubmit">
+      <form class="p-fluid" @submit.prevent="sendFile">
         <div class="field">
           <div>
             <label for="event-name">Event Name*</label>
@@ -36,11 +36,18 @@
             <Dropdown v-model="state.eventTags" :options="tagOptions" optionLabel="name" placeholder="Select tags" />
           </div>
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <div>
             <label>Cover Image</label>
             <FileUpload v-model="state.eventCoverImage" name="event-cover-image" accept="image/*" maxFileSize="2000000"
               chooseLabel="Choose file" />
+          </div>
+        </div> -->
+
+        <div class="field">
+          <div>
+            <label for="file-upload">Select Image:</label>
+            <input class="p-button-secondary" type="file" id="file-upload" ref="file" @change="selectFile"/>
           </div>
         </div>
       
@@ -63,6 +70,7 @@ import {ref, onMounted} from 'vue'
 import { useRouter } from 'vue-router';
 import { useEventsStore } from '../../stores/events';
 import { useAuthStore } from '../../stores/auth';
+import axios from 'axios';
 
 const eventsStore = useEventsStore()
 const authStore = useAuthStore()
@@ -85,15 +93,72 @@ const tagOptions = ref([
 
 const handleSubmit = () => {
   submitted.value = true
-  const organization_id = authStore.users.organization_id
-  eventsStore.createEvent(organization_id,state.eventName, state.eventLocation, state.eventDate , state.eventDescription, state.eventTags.code);
+  //const organization_id = authStore.users.organization_id
+  //eventsStore.createEvent(organization_id,state.eventName, state.eventLocation, state.eventDate , state.eventDescription, state.eventTags.code);
+
   router.push('/events')
 }
+
+//
+const organization_id = authStore.users.organization_id
+    const selectFile = (event) => {
+      state.selectedFile = event.target.files[0];
+    }
+
+    const sendFile = async () => {
+      try {
+        const formData = new FormData();
+        formData.append('file', state.selectedFile);
+        formData.append('organization_id', organization_id);
+        formData.append('name', state.eventName);
+        formData.append('description', state.eventDescription);
+        formData.append('location', state.eventLocation);
+        formData.append('start_datetime', state.eventDate);
+        formData.append('tags', state.eventTags.code);
+        const response = await axios.post('http://localhost:3000/events', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log(response.data);
+        // handle success
+      } catch (error) {
+        console.error(error);
+        // handle error
+      }
+    }
+
+    // async function sendFile() {
+    //   try {
+    //     const formData = new FormData();
+    //     formData.append('file', this.selectedFile);
+    //     formData.append('organization_id', this.organizationId);
+    //     formData.append('name', this.eventName);
+    //     formData.append('description', this.description);
+    //     formData.append('location', this.location);
+    //     formData.append('start_datetime', this.startDatetime);
+    //     formData.append('tags', this.tags);
+    //     const response = await axios.post('http://localhost:3000/events', formData, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //     });
+    //     console.log(response.data);
+    //     // handle success
+    //   } catch (error) {
+    //     console.error(error);
+    //     // handle error
+    //   }
+    // }
+
+
+//
+
 const router = useRouter()
 
 onMounted(async()=>{
 
-  } 
+  }   
 )
 
 const state = reactive({
@@ -105,7 +170,8 @@ const state = reactive({
   eventTags: null,
   eventCoverImage: null,
   eventFlyer: null,
-  priceAtDoor: null
+  priceAtDoor: null,
+  selectedFile: null
 });
 
 

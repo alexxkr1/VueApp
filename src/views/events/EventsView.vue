@@ -26,7 +26,7 @@
         <template #content>
           <div class="container">
             <div class="image-container">
-              <img class="w-10" alt="user header" src="./img.jpg">
+              <img class="w-10" alt="user header" :src="event.image_url">
             </div>
             <div class="text-container">
               <div>

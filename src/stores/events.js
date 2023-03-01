@@ -44,21 +44,35 @@ export const useEventsStore = defineStore('events', () => {
         }
     }
 
-   async function createEvent( organization_id,name, location, start_datetime, description, tags) {
+   async function createEvent( organization_id,name, location, start_datetime, description, tags, coverImage) {
     try {
         errorMessage.value = "";
-        httpClient.post('/events', {
-            organization_id,
-            name,
-            location,
-            start_datetime,
-            description,
-            tags,
-          }, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
+        const formData = new FormData();
+        formData.append('organization_id', organization_id);
+        formData.append('name', name);
+        formData.append('location', location);
+        formData.append('start_datetime', start_datetime);
+        formData.append('description', description);
+        formData.append('tags', tags);
+        formData.append('cover_image', coverImage);
+    
+        httpClient.post('/events', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        // httpClient.post('/events', {
+        //     organization_id,
+        //     name,
+        //     location,
+        //     start_datetime,
+        //     description,
+        //     tags,
+        //   }, {
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     }
+        //   })
           router.push('/events')
     } catch (error) {
         setErrorMessage(error)

@@ -2,6 +2,7 @@
     <div class="container mx-auto py-12">
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div v-for="event in events" :key="event.id" class="rounded-lg overflow-hidden shadow-lg">
+          <img :src="event.image_url" width="240" alt="">
           <div class="px-4 py-4">
             <h2 class="text-lg font-medium text-gray-900 mb-2">{{ event.name }}</h2>
             <p class="text-gray-700 text-sm mb-2">{{ formatDate(event.start_datetime) }}</p>
